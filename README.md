@@ -1,4 +1,6 @@
-# TD Credit Card Statement PDF Extractor ![python: 3.11+](https://img.shields.io/badge/python-3.11%2B-blue) ![coverage: 90%](https://img.shields.io/badge/coverage-90%25-brightgreen)
+# TD Credit Card Statement PDF Extractor
+
+![python: 3.11+](https://img.shields.io/badge/python-3.11%2B-blue) ![coverage: 90%](https://img.shields.io/badge/coverage-90%25-brightgreen)
 
 Extracts transactions from TD credit card statement PDFs into CSV.
 
@@ -10,7 +12,13 @@ Extracts transactions from TD credit card statement PDFs into CSV.
 
 ## Usage
 
-Extract transactions and print CSV to stdout:
+Run directly from GitHub (no clone needed):
+
+```sh
+uv run https://raw.githubusercontent.com/jan-scholz/td-pdf-statement-extractor/refs/heads/main/extract_pdf.py *.pdf
+```
+
+Or from a local copy:
 
 ```sh
 uv run extract_pdf.py *.pdf
