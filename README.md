@@ -1,4 +1,4 @@
-# TD Credit Card Statement PDF Extractor
+# TD Credit Card Statement PDF Extractor ![python: 3.11+](https://img.shields.io/badge/python-3.11%2B-blue) ![coverage: 90%](https://img.shields.io/badge/coverage-90%25-brightgreen)
 
 Extracts transactions from TD credit card statement PDFs into CSV.
 

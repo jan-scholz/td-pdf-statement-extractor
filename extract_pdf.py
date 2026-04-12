@@ -134,7 +134,7 @@ def process_pdf(pdf_path: str, debug: bool = False) -> pd.DataFrame:
     return pd.concat(frames, ignore_index=True)
 
 
-def main():
+def main():  # pragma: no cover
     import argparse
 
     parser = argparse.ArgumentParser(description=__doc__)
