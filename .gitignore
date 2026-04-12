@@ -1,0 +1,16 @@
+# Real financial data
+*.pdf
+!tests/doc.pdf
+*.csv
+
+# Python
+__pycache__/
+
+# Test/coverage artifacts
+.pytest_cache/
+.coverage
+htmlcov/
+tmp/
+
+# macOS
+.DS_Store
