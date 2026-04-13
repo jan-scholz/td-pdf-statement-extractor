@@ -113,6 +113,25 @@ def parse_transaction_table(block: str, statement_date: datetime) -> pd.DataFram
     return pd.DataFrame(data_rows)
 
 
+def parse_balance_block(blocks: list[str]) -> dict[str, float]:
+    """Parse the CALCULATING YOUR BALANCE table, return label->amount mapping."""
+    for block in blocks:
+        if "CALCULATING YOUR BALANCE" not in block:
+            continue
+        result = {}
+        for line in block.strip().splitlines():
+            if re.match(r"\|[-\s|]+\|$", line):
+                continue
+            cells = [c.strip() for c in line.strip().strip("|").split("|")]
+            if len(cells) < 2 or "CALCULATING YOUR BALANCE" in cells[0]:
+                continue
+            amount = parse_amount(cells[1])
+            if amount is not None:
+                result[cells[0]] = amount
+        return result
+    return {}
+
+
 def process_pdf(pdf_path: str, debug: bool = False) -> pd.DataFrame:
     """Extract and parse all transactions from a single PDF."""
     print(f"Processing {pdf_path} ...", file=sys.stderr)
@@ -131,7 +150,14 @@ def process_pdf(pdf_path: str, debug: bool = False) -> pd.DataFrame:
 
     if not frames:
         return pd.DataFrame()
-    return pd.concat(frames, ignore_index=True)
+    combined = pd.concat(frames, ignore_index=True)
+
+    balance = parse_balance_block(blocks)
+    if balance:
+        combined["previous_balance"] = balance.get("Previous Balance")
+        combined["new_balance"] = balance.get("NEW BALANCE")
+
+    return combined
 
 
 def main():  # pragma: no cover
